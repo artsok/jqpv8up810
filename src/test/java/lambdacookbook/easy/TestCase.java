@@ -4,14 +4,13 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
-import java.util.Collections;
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -23,7 +22,7 @@ public class TestCase {
     /**
      * Given that Book is a valid class with appropriate constructor and getPrice and getTitle methods
      * that returns a double and a String respectively, consider the following code:
-     *
+     * <p>
      * Работа со stream и flatmap
      */
     @Test
@@ -32,14 +31,15 @@ public class TestCase {
                 Arrays.asList(new Book("Windmills of the Gods", 7.0), new Book("Tell me your dreams", 9.0)),
                 Arrays.asList(new Book("There is a hippy on the highway", 5.0), new Book("Easy come easy go", 5.0)));
 
-        double price = books.stream().flatMap(bs -> bs.stream()).mapToDouble(book -> book.price).sum();
+        double price = books.stream().flatMap(Collection::stream).mapToDouble(book -> book.price).sum();
 
         logger.info("Результат операции {}", price);
     }
 
     /**
      * Пример работы с методом find() - Возвращает Stream<Path>
-     * @throws IOException
+     *
+     * @throws IOException if a problem occurs.
      */
     @Test
     public void testStreamFilesFind() throws IOException {
@@ -52,7 +52,8 @@ public class TestCase {
 
     /**
      * Работа с методом list() из класса Files
-     * @throws IOException
+     *
+     * @throws IOException if a problem occurs.
      */
     @Test
     public void testStreamList() throws IOException {
@@ -62,7 +63,8 @@ public class TestCase {
 
     /**
      * Lazy read file, line by line.
-     * @throws IOException
+     *
+     * @throws IOException if a problem occurs.
      */
     @Test
     public void testStreamLine() throws IOException {
@@ -77,7 +79,7 @@ public class TestCase {
     @Test
     public void printStream() {
         Stream<List<String>> s1 = Stream.of(Arrays.asList("a", "b"), Arrays.asList("a", "c"));
-        Stream<String> news  = s1.filter(s -> s.contains("c")).flatMap(olds -> olds.stream());
+        Stream<String> news = s1.filter(s -> s.contains("c")).flatMap(Collection::stream);
         news.forEach(str -> logger.info(str));
     }
 
