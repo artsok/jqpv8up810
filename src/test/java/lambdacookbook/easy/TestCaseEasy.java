@@ -15,9 +15,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class TestCase {
+public class TestCaseEasy {
 
-    private static Logger logger = LoggerFactory.getLogger(TestCase.class);
+    private static Logger logger = LoggerFactory.getLogger(TestCaseEasy.class);
 
     /**
      * Given that Book is a valid class with appropriate constructor and getPrice and getTitle methods
@@ -38,6 +38,8 @@ public class TestCase {
 
     /**
      * Пример работы с методом find() - Возвращает Stream<Path>
+     * The maxDepth parameter specifies how deep should the walk method traverse down the directory structure.
+     * A value of 0 implies that will not even go inside the starting directory. Therefore, it will just print the starting directory.
      *
      * @throws IOException if a problem occurs.
      */
@@ -63,6 +65,8 @@ public class TestCase {
 
     /**
      * Lazy read file, line by line.
+     * The stream is lazily populated, which means, it doesn't read the whole file upfront.
+     * It reads the file as you consume the elements of the stream. This helps if you have a large file.
      *
      * @throws IOException if a problem occurs.
      */
@@ -77,10 +81,21 @@ public class TestCase {
      * What will the following code print when compiled and run?
      */
     @Test
-    public void printStream() {
+    public void testPrintStream() {
         Stream<List<String>> s1 = Stream.of(Arrays.asList("a", "b"), Arrays.asList("a", "c"));
         Stream<String> news = s1.filter(s -> s.contains("c")).flatMap(Collection::stream);
         news.forEach(str -> logger.info(str));
+    }
+
+    /**
+     * Метод readAllLines, читает весь файл целиком и могут быть проблемы при чтение больших файлов
+     * Both the methods - readAllLines and lines - throw an exception if you try to pass a path to a directory instead of a regular file.
+     *
+     * @throws IOException if a problem occurs.
+     */
+    @Test
+    public void testReadAllLines() throws IOException {
+        Files.readAllLines(Paths.get(""), Charset.defaultCharset()).forEach(logger::info);
     }
 
     private class Book {
