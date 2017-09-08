@@ -7,7 +7,9 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.stream.Stream;
 
 public class TestCaseTough {
 
@@ -30,6 +32,33 @@ public class TestCaseTough {
     public void testWalk() throws IOException {
         Files.walk(Paths.get("./"), 0)
                 .forEach(str -> logger.info("file : {}", str.getFileName()));
+    }
+
+    /**
+     * Deep dive
+     * @throws IOException if a problem occurs.
+     */
+    @Test
+    public void testDeepWalt() throws IOException {
+        Stream<Path> files = Files.walk(Paths.get("./"), Integer.MAX_VALUE);
+        files.close();
+    }
+
+    /**
+     * 	Given that c:\temp\pathtest is a directory that contains several directories.
+     * 	Each sub directory contains several files but there is exactly one regular file named test.txt within the whole directory structure.
+     * 	Which of the given options can be inserted in the code below so that it will print complete path of test.txt?
+     *
+     * @throws IOException if a problem occurs.
+     */
+    @Test
+    public void testFindInDeepWithMatchers() throws IOException {
+        Stream<Path> pathStream =
+                Files.find(
+                        Paths.get("c:\\temp\\pathtest"),
+                        Integer.MAX_VALUE,
+                        (p, a)-> p.endsWith("test.txt")&& a.isRegularFile());
+        pathStream.close();
     }
 
 }
