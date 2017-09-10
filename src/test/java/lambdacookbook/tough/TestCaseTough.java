@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.nio.file.FileVisitOption;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -65,6 +66,31 @@ public class TestCaseTough {
         pathStream.close();
     }
 
+
+    /**
+     * Return a Stream that is lazily populated with Path by searching for files in a file tree rooted at a given starting file.
+     *
+     * Parameters:
+     * start - the starting file
+     * maxDepth - the maximum number of directory levels to search
+     * matcher - the function used to decide whether a file should be included in the returned stream
+     * options - options to configure the traversal
+     *
+     * Returns: the Stream of Path
+     *
+     * Throws:
+     * IllegalArgumentException - if the maxDepth parameter is negative
+     * SecurityException - If the security manager denies access to the starting file. In the case of the default provider, the checkRead method is invoked to check read access to the directory.
+     * IOException - if an I/O error is thrown when accessing the starting file.
+     * @throws IOException if a problem occurs.
+     */
+    @Test
+    public void testFindWithFileVisitOption() throws IOException {
+        Stream<Path> files = Files.find(Paths.get("./"), Integer.MAX_VALUE, (p, a) -> a.size() > 1000, FileVisitOption.FOLLOW_LINKS);
+        files.close();
+    }
+
+
     /**
      * IntStream's range method returns a sequential ordered IntStream from startInclusive (inclusive) to endExclusive (exclusive) by an incremental step of 1.
      * The rangeClosed method works similarly except that the second parameter is also included in the result.
@@ -80,7 +106,7 @@ public class TestCaseTough {
     @Test
     public void testIntStreamRangeClosed() {
         IntStream is = IntStream.rangeClosed(1, 4);
-        int c = is.reduce(0, (a, b) -> a + b);
+        int value = is.reduce(0, (a, b) -> a + b);
     }
 
     /**
@@ -103,6 +129,30 @@ public class TestCaseTough {
         Object val = is3.boxed().collect(Collectors.groupingBy(k->k)).get(3);
         logger.info("val = {}", val);
     }
+
+
+    /**
+     * This code illustrates the use of Collectors.partitioningBy method.
+     * This method takes a Predicate and returns Collector that distributes the elements of the stream into two groups -
+     * one containing elements for which the Predicate returns true, and another containing elements for which the Predicate returns false.
+     * The return type is a Map containing two keys - true and false and the values are Lists of the elements.
+     *
+     * IntStream.rangeClosed(10, 15) creates an IntStream of int primitives containing elements 10, 11, 12, 13, 14, and 15
+     * (Observe that 15 is included).
+     *
+     * IntStream does not support the various collect methods supported by a regular Stream of objects.
+     * But it does support a boxed() method that returns a Stream<Integer> containing Integer objects.
+     */
+    @Test
+    public void testPartitioningBy() {
+        Stream<Integer> values = IntStream.rangeClosed(10, 15).boxed();
+        Object obj = values.collect(Collectors.partitioningBy(x -> x%2==0));
+        logger.info("Результат {}", obj);
+    }
+
+
+
+
 
 
 }

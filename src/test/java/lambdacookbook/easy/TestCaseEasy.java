@@ -88,7 +88,7 @@ public class TestCaseEasy {
     }
 
     /**
-     * Метод readAllLines, читает весь файл целиком и могут быть проблемы при чтение больших файлов
+     * Метод readAllLines, читает весь файл целиком и могут быть проблемы при чтение больших файлов. Возвращает List<String>
      * Both the methods - readAllLines and lines - throw an exception if you try to pass a path to a directory instead of a regular file.
      *
      * @throws IOException if a problem occurs.
