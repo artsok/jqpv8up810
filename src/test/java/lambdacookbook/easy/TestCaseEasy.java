@@ -9,9 +9,7 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -97,6 +95,22 @@ public class TestCaseEasy {
     public void testReadAllLines() throws IOException {
         Files.readAllLines(Paths.get(""), Charset.defaultCharset()).forEach(logger::info);
     }
+
+
+    /**
+     * The objective of the given code is to collect multiple values for a given key in a map.
+     * When a value for a new key is to be inserted, it needs to put a List in the map first before adding the key to the List.
+
+     computeIfAbsent is perfect for this. This methods checks if the key exists in the map.
+     If it does, the method just returns the value associated with that key.
+     If it doesn't, the method executes the Function, associates the value returned by that Function in the map with that key, and returns that value.
+     */
+    @Test
+    public void testComputeIfAbsent() {
+        Map<String, List<Double>> groupedValues = new HashMap<>();
+        groupedValues.computeIfAbsent("key", (a) -> new ArrayList<>()).add(2.0);
+    }
+
 
     private class Book {
         private final String context;
