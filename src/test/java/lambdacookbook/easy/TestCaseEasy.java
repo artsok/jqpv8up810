@@ -75,14 +75,23 @@ public class TestCaseEasy {
         logger.info("Concat string:\n {}", lines);
     }
 
-    /**
-     * What will the following code print when compiled and run?
-     */
+
     @Test
     public void testPrintStream() {
         Stream<List<String>> s1 = Stream.of(Arrays.asList("a", "b"), Arrays.asList("a", "c"));
-        Stream<String> news = s1.filter(s -> s.contains("c")).flatMap(Collection::stream);
-        news.forEach(str -> logger.info(str));
+
+        //TODO
+
+        Stream.of(Arrays.asList("a", "b"), Arrays.asList("a", "c")).flatMap(Stream::of).forEach((x)->System.out.println(x));
+
+        Stream.of(Arrays.asList("a", "b"), Arrays.asList("a", "c")).flatMap((x) -> x.stream()).forEach((x)->System.out.println(x));
+
+        Stream.of(Arrays.asList("a", "b"), Arrays.asList("a", "c")).forEach((x)->System.out.println(x));
+
+
+//
+//        Stream<String> news = s1.filter(s -> s.contains("c")).flatMap(Collection::stream);
+//        news.forEach(str -> logger.info(str));
     }
 
     /**
@@ -109,6 +118,20 @@ public class TestCaseEasy {
     public void testComputeIfAbsent() {
         Map<String, List<Double>> groupedValues = new HashMap<>();
         groupedValues.computeIfAbsent("key", (a) -> new ArrayList<>()).add(2.0);
+    }
+
+    /**
+     * We want to add new ArrayList object to the map for a given key only if the mapping is already there.
+     * It will actually throw a NullPointerException when you try to add a value to key that does not already exist in the map.
+     *
+     * Very fantastic algorithm, if we dive to computeIfPresent see -  if new value will be null, we delete key from collection.
+     */
+    @Test
+    public void testComputeIfPresent() {
+        Map<String, List<Double>> groupedValues = new HashMap<>();
+        groupedValues.put("1", Collections.singletonList(1.0));
+        groupedValues.computeIfPresent("1", (a, b) -> null);
+        logger.info("testComputeIfPresent - '{}'", groupedValues);
     }
 
 
