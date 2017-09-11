@@ -10,6 +10,7 @@ import java.nio.file.FileVisitOption;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Map;
 import java.util.OptionalInt;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -148,6 +149,17 @@ public class TestCaseTough {
         Stream<Integer> values = IntStream.rangeClosed(10, 15).boxed();
         Object obj = values.collect(Collectors.partitioningBy(x -> x%2==0));
         logger.info("Результат {}", obj);
+    }
+
+    /**
+     * Read user and password from file
+     * @throws IOException
+     */
+    @Test
+    public void readPasswordFromFile() throws IOException {
+        Map<String, String> userPasswords = Files.lines(Paths.get("./"))
+                .map(str -> str.split(":")).collect(Collectors.toMap(arr -> arr[0], arr -> arr[1]));
+
     }
 
 
