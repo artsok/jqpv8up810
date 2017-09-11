@@ -152,14 +152,21 @@ public class TestCaseTough {
     }
 
     /**
-     * Read user and password from file
-     * @throws IOException
+     * Read user and password from file (read one line from file and don't close stream)
+     * @throws IOException if a problem occurs.
      */
     @Test
     public void readPasswordFromFile() throws IOException {
         Map<String, String> userPasswords = Files.lines(Paths.get("./"))
                 .map(str -> str.split(":")).collect(Collectors.toMap(arr -> arr[0], arr -> arr[1]));
+    }
 
+    /**
+     * Read all file to RAM and close file
+     * @throws IOException if a problem occurs.
+     */
+    public void readLineAndCloseStream() throws IOException {
+        //Stream.of(Files.lines(Paths.get("./")).flatMap(s -> s).spliterator().tryAdvance(null);
     }
 
 
