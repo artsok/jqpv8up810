@@ -17,7 +17,7 @@
  ``  
  
  
-2. All Functional Interface in java.util.function
+# All Functional Interface in java.util.function
 ```  
 BiConsumer
 BiFunction
