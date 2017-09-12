@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.function.Consumer;
+import java.util.function.DoubleSupplier;
 import java.util.function.IntFunction;
 import java.util.function.Supplier;
 
@@ -45,6 +46,30 @@ public class TestCaseEasy {
         Supplier<String> a = name::toUpperCase;
         val = a.get();
         logger.info("testSupplier -  {}", val);
+    }
+
+    /**
+     * Supplier - return a value. To get a value, we must use getAsDouble();
+     */
+    @Test
+    public void testDoubleSupplier() {
+        class Book {
+            private Double db;
+            private String title;
+
+            private Book(Double db, String title) {
+                this.db = db;
+                this.title = title;
+            }
+
+            private Double getDb() {
+                return db;
+            }
+        }
+
+        Book book = new Book(null, "JQPV 8up810 in 24hr");
+        DoubleSupplier ds = book::getDb;
+        logger.info("testDoubleSupplier {}", ds.getAsDouble());
     }
 
 
