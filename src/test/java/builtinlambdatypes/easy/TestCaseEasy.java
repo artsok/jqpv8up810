@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.function.Consumer;
 import java.util.function.IntFunction;
+import java.util.function.Supplier;
 
 public class TestCaseEasy {
 
@@ -13,6 +14,7 @@ public class TestCaseEasy {
 
     /**
      * Обращаем внимание, что у интерфейса Consumer метод !!accept!!, чтобы выполнить операцию над параметром
+     * Только принимает параметры, но ничего не производит
      */
     @Test
     public void testConsumer() {
@@ -32,6 +34,19 @@ public class TestCaseEasy {
         IntFunction<String> intToString = String::valueOf;
         logger.info("testIntFunction -  {}",  intToString.apply(4));
     }
+
+    /**
+     * Обратить внимание, что для того чтобы получить результат необходимо вызвать get
+     * Производит данные, но ничего не потребляет.
+     */
+    @Test
+    public void testSupplier() {
+        String name = "bob"; String val = null;
+        Supplier<String> a = name::toUpperCase;
+        val = a.get();
+        logger.info("testSupplier -  {}", val);
+    }
+
 
     private class Book {
         private int id;
