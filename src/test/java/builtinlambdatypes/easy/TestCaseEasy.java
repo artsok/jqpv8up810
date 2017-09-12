@@ -50,8 +50,14 @@ public class TestCaseEasy {
 
     /**
      * Supplier - return a value. To get a value, we must use getAsDouble();
+     *
+     java.util.function.DoubleSupplier (and other similar Suppliers such as IntSupplier and LongSupplier) is a
+     functional interface with the functional method named getAsDouble.
+     The return type of this method is a primitive double (not Double).
+     Therefore, if your lambda expression for this function returns a Double, it will automatically be converted into a
+     double because of auto-unboxing. However, if your expression returns a null, a NullPointerException will be thrown.
      */
-    @Test
+    @Test(expected = NullPointerException.class)
     public void testDoubleSupplier() {
         class Book {
             private Double db;
