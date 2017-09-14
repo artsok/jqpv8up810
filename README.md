@@ -10,7 +10,7 @@
 # What To Remember
 1. Remember that the parameter list part of a lambda expression declares new variables that are used in the body part of that lambda expression. However, a lambda expression does not create a new scope for variables. Therefore, you cannot reuse the local variable names that have already been used in the enclosing method to declare the variables in you lambda expression. It would be like declaring the same variable twice 
 
-``
+```java
    public static void main(String[] args) { 
    Employee e = new Employee(); 
    System.out.println(validateEmployee(e, e->e.age<10000));}
