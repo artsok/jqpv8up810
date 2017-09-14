@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class TestCaseEasy {
 
@@ -46,6 +47,16 @@ public class TestCaseEasy {
         books.stream().forEach(b -> logger.info("Результат '{}', '{}'", b.price, b.title));
     }
 
+    /**
+     * Collector.counting returns a Collector that returns a long.
+     * You cannot assign it to an int without a cast.
+     * If you make it long, it will print 2 because there are two elements with length greater than 4.
+     */
+    @Test
+    public void testCollectorsCounting() {
+        List<String> names = Arrays.asList("charles", "chuk", "cynthia", "cho", "cici");
+        long cont = names.stream().filter(name -> name.length() > 4).collect(Collectors.counting());
+    }
 
 
 }
