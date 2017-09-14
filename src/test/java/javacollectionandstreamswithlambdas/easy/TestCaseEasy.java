@@ -8,6 +8,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static java.util.Arrays.asList;
+
 public class TestCaseEasy {
 
     private static Logger logger = LoggerFactory.getLogger(lambdacookbook.easy.TestCaseEasy.class);
@@ -38,7 +40,7 @@ public class TestCaseEasy {
                 this.title = title;
             }
         }
-        List<Book> books = Arrays.asList(
+        List<Book> books = asList(
                 new Book("Freedom at Midnight", 5.0),
                 new Book("Gone with the wind", 5.0),
                 new Book("Midnight Cowboy", 15.0) );
@@ -54,9 +56,24 @@ public class TestCaseEasy {
      */
     @Test
     public void testCollectorsCounting() {
-        List<String> names = Arrays.asList("charles", "chuk", "cynthia", "cho", "cici");
+        List<String> names = asList("charles", "chuk", "cynthia", "cho", "cici");
         long cont = names.stream().filter(name -> name.length() > 4).collect(Collectors.counting());
     }
+
+
+    /**
+     * If it were a Stream of mutable objects such as StringBuilders and if you append something to the elements in the
+     * first forEach, that would change the original StringBuilder objects contained in the list.
+     * In that case, the second forEach will actually print the updated values.
+     * For example, the following code will indeed print ab and aab.
+     */
+    @Test
+    public void testMutableForEachStream() {
+        List<StringBuilder> a = asList(new StringBuilder("a"), new StringBuilder("b"));
+        a.forEach(sb -> sb.append("123"));
+        a.stream().forEach(sb -> logger.info("Результат {}", sb));
+    }
+
 
 
 }
