@@ -170,7 +170,12 @@ public class TestCaseTough {
     }
 
 
+    @Test
+    public void test() {
+        String a = "";
+        System.out.println(a.contains(""));
 
+    }
 
 
 
