@@ -51,8 +51,21 @@ interface House{
  ```
  super.methodName(...) is a valid way to invoke a super class's method from anywhere within a subclass's method. But it works only for classes. You cannot invoke the interface's default method using this technique. To do so, you need to add interface name before super i.e. Account.super.getId();
  
- 
- 
+8. 
+```java
+static void compute();
+```
+An interface can have a static method but the method must have a body in that case because a static method cannot be abstract.
+
+9. 
+```java
+public class BookStore {    private static final int taxId = 300000;    private String name;    public String searchBook( final String criteria )    {       int count = 0;       int sum = 0;       sum++;       class Enumerator       {          String interate( int k)          {             //line 1             // lots of code             return "";          }          // lots of code.....       }       // lots of code.....       return "";    } }
+```
+
+taxId, name, criteria, count, k 
+
+If the inner class is non static, all the static and non-static members of the outer class are accessible (otherwise only static are accessible) So option 1, 2 are valid.
+Prior to java 8, only final local variables were accessible to the inner class but in Java 8, even effectively final local variables of the method are accessible to the inner defined in that method as well. So option 4 is correct.
  
 # All Functional Interface in java.util.function
 ```  
