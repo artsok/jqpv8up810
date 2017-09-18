@@ -1,11 +1,14 @@
 package javacollectionandstreamswithlambdas.easy;
 
+import com.sun.org.apache.xpath.internal.SourceTree;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import static java.util.Arrays.asList;
@@ -74,6 +77,13 @@ public class TestCaseEasy {
         a.stream().forEach(sb -> logger.info("Результат {}", sb));
     }
 
+    @Test
+    public void testFunctionOperation() {
+        List<String> list = Arrays.asList("a", "aa", "aaa");
+        Function<String, Integer> func = String::length;
+        Consumer<Integer> consumer = x -> System.out.println("Len: " + x +  "");
+        list.stream().map(func).forEach(consumer);
+    }
 
 
 }

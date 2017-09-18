@@ -66,6 +66,21 @@ taxId, name, criteria, count, k
 
 If the inner class is non static, all the static and non-static members of the outer class are accessible (otherwise only static are accessible) So option 1, 2 are valid.
 Prior to java 8, only final local variables were accessible to the inner class but in Java 8, even effectively final local variables of the method are accessible to the inner defined in that method as well. So option 4 is correct.
+
+
+10. Java Collections and Streams with Lambda
+```html
+As per https://docs.oracle.com/javase/tutorial/collections/streams/:
+
+A pipeline contains the following components:
+A source: This could be a collection, an array, a generator function, or an I/O channel. In this example, the source is the collection roster.
+Zero or more intermediate operations: An intermediate operation, such as filter, produces a new stream.
+A terminal operation.
+```
+
+```html
+public static <T> Collector<T,?,Long> counting() Returns a Collector accepting elements of type T that counts the number of input elements. If no elements are present, the result is 0.
+``'
  
 # All Functional Interface in java.util.function
 ```  
