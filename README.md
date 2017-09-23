@@ -81,9 +81,42 @@ A terminal operation.
 ```html
 public static <T> Collector<T,?,Long> counting() Returns a Collector accepting elements of type T that counts the number of input elements. If no elements are present, the result is 0.
 ```
- 
 
-11. Lambda CookBook
+11.
+```html
+Remember that Stream has only two overloaded collect methods - one that takes a Collector as an argument and another one that takes a Supplier, BiConsumer, and BiConsumer. 
+In this option, it is trying to pass two Collectors to the collect method. Therefore, it will not compile.  
+1. public <R,A> R collect(Collector<? super T,A,R> collector) Performs a mutable reduction operation on the elements of this stream using a Collector. 
+A Collector encapsulates the functions used as arguments to Stream.collect(Supplier, BiConsumer, BiConsumer), allowing for reuse of collection strategies 
+and composition of collect operations such as multiple-level grouping or partitioning.  
+
+2.public <R> R collect(Supplier<R> supplier, BiConsumer<R,? super T> accumulator, BiConsumer<R,R> combiner) Performs a mutable reduction 
+operation on the elements of this stream. A mutable reduction is one in which the reduced value is a mutable result container, 
+such as an ArrayList, and elements are incorporated by updating the state of the result rather than by replacing the result. 
+```
+
+
+```html
+public static <T> Collector<T,?,Long> counting() Returns a Collector accepting elements of type T that counts the number 
+of input elements. If no elements are present, the result is 0.
+```
+
+```html
+The Collector created by Collectors.toMap throws java.lang.IllegalStateException if an attempt is made to store a key that 
+already exists in the Map. If you want to collect items in a Map and if you expect duplicate entries in the source, 
+you should use Collectors.toMap(Function, Function, BinaryOperator) method. 
+The third parameter is used to merge the duplicate entries to produce one entry. For example, in this case, you can do: 
+Collectors.toMap(b->b.getTitle(), b->b.getPrice(), (v1, v2)->v1+v2) 
+This Collector will sum the values of the entries that have the same key. Therefore, it will print :
+```
+
+```html
+There are multiple flavors of Collectors.joining method and all of them are meant to join CharSequences and return the 
+combined String. For example, if you have a List of Strings, you could join all the elements into one long String 
+using the Collectors returned by these methods. You should check their JavaDoc API description for details.
+```
+
+12. Lambda CookBook
 The JavaDoc API description explains exactly how the merge method works. 
 You should go through it as it is important for the exam.  
 public V merge(K key, V value, BiFunction<? super V,? super V,? extends V> remappingFunction)  

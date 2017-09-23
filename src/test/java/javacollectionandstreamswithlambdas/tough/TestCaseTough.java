@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -37,6 +38,16 @@ public class TestCaseTough {
         Optional<Integer> a = IntStream.rangeClosed(10, 15).boxed().parallel().filter(x -> x > 12).findAny();
         Optional<Integer> b = IntStream.rangeClosed(10, 15).boxed().sequential().filter( x -> x > 12).findAny();
         logger.info("a = '{}', b = '{}'", a, b);
+    }
+
+    /**
+     * Map's forEach method requires BiConsumer object.
+     */
+    @Test
+    public void testIterateMap() {
+        HashMap<Integer, String> hm = new HashMap<>();
+        hm.put(1, "a"); hm.put(2, "b"); hm.put(3, "c");
+        hm.forEach((key, value)-> System.out.printf("%d %s ,", key, value));
     }
 
 }
