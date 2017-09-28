@@ -82,7 +82,7 @@ A terminal operation.
 public static <T> Collector<T,?,Long> counting() Returns a Collector accepting elements of type T that counts the number of input elements. If no elements are present, the result is 0.
 ```
 
-11.
+11. 
 ```html
 Remember that Stream has only two overloaded collect methods - one that takes a Collector as an argument and another one that takes a Supplier, BiConsumer, and BiConsumer. 
 In this option, it is trying to pass two Collectors to the collect method. Therefore, it will not compile.  
@@ -114,6 +114,28 @@ This Collector will sum the values of the entries that have the same key. Theref
 There are multiple flavors of Collectors.joining method and all of them are meant to join CharSequences and return the 
 combined String. For example, if you have a List of Strings, you could join all the elements into one long String 
 using the Collectors returned by these methods. You should check their JavaDoc API description for details.
+```
+
+11. Collections Operations with Lambda
+
+```html
+ Here are a few important things you need to know about Optional class: 
+ 1. Optional has a static method named of(T t) that returns an Optional object containing the value passed as argument. 
+ It will throw NullPointerException if you pass null. If you want to avoid NullPointerException, 
+ you should use Optional.ofNullable(T t) method. This will return Optional.empty if you pass null.  
+ 
+ 2. You cannot change the contents of Optional object after creation. Optional does not have a set method. 
+ Therefore, grade.of, although technically correct, will not actually change the Optional object referred to by grade. 
+ It will return a new Optional object containing the passed argument.  
+ 
+ 3. The orElse method returns the actual object contained inside the Optional or the argument passed to this method if 
+ the Optional is empty. It does not return an Optional object. Therefore, print(grade1.orElse("UNKNOWN")) 
+ will print UNKNOWN and not Optional[UNKNOWN].  
+ 
+ 4. isPresent() returns true if the Optional contains a value, false otherwise.  
+ 
+ 5. ifPresent(Consumer ) executes the Consumer object with the value if the Optional contains a value. 
+ Not that it is the value contained in the Optional that is passed to the Consumer and not the Optional itself.
 ```
 
 12. Lambda CookBook

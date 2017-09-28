@@ -1,5 +1,6 @@
 package javacollectionandstreamswithlambdas.easy;
 
+import org.jetbrains.annotations.NotNull;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -84,6 +85,7 @@ public class TestCaseEasy {
         list.stream().map(func).forEach(consumer);
     }
 
+    @Test
     public void testMethodReference() {
 
         class Student {
@@ -92,24 +94,8 @@ public class TestCaseEasy {
                 this.marks = marks;
             }
 
-            public void setName(String name) {
-                this.name = name;
-            }
-
-            public void setMarks(int marks) {
-                this.marks = marks;
-            }
-
             private String name;
             private int marks;
-
-            public String getName() {
-                return name;
-            }
-
-            public int getMarks() {
-                return marks;
-            }
 
             private void addMarks(int m) {
                 this.marks += m;
@@ -128,6 +114,13 @@ public class TestCaseEasy {
         slist.forEach(increaseMarks);
         slist.stream().forEach(Student::debug);
 
+    }
+
+    @Test
+    public void testFilterWithComparator() {
+        List<String> al = Arrays.asList("aa", "aaa", "b", "cc", "ccc", "ddd", "a");
+        long count = al.stream().filter(element -> element.compareTo("c") > 0).count();
+        logger.info("Результат testFilterWithComparator() '{}'", count);
     }
 
 }

@@ -35,6 +35,13 @@ public class TestCaseEasy {
 
         list.stream().collect(Collectors.groupingBy(Course::getCategory)).forEach((m, n) -> logger.info("testCollectorsGroupingBy - {}, {}", m, n));
     }
+
+    @Test
+    public void testPredicateAllMatch() {
+        List<String> values = Arrays.asList("Alpha A", "Alpha B", "Alpha C");
+        boolean flag = values.stream().allMatch(str -> str.equals("Alha"));
+        logger.info("Результат testPredicateAllMatch '{}'", flag);
+    }
 }
 
 
