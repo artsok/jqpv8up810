@@ -138,6 +138,29 @@ using the Collectors returned by these methods. You should check their JavaDoc A
  Not that it is the value contained in the Optional that is passed to the Consumer and not the Optional itself.
 ```
 
+```java
+boolean flag = values.stream().allMatch(str->str.equals("Alpha")); 
+Optional<String> opt = values.stream().findFirst();
+Optional<String> opt = values.stream().findAny();
+boolean flag = values.stream().anyMatch(str->str.equals("Alpha"));
+```
+
+You need to know the details of the following methods of Stream interface: allMatch, noneMatch, anyMatch, findFirst, and findAny.
+Please see the JavaDoc API description of these methods: https://docs.oracle.com/javase/8/docs/api/java/util/stream/Stream.html
+
+It is important to note that all of these are short-circuiting terminal operations. 
+This means, the given predicate will not be executed for each element of the stream if the result can be determined by 
+testing an element in the beginning itself. For example, if you invoke predicate on the given stream, 
+the predicate will return false for the first element and therefore there is not need for it to be executed only rest of the element.
+
+
+
+
+
+
+
+
+
 12. Lambda CookBook
 The JavaDoc API description explains exactly how the merge method works. 
 You should go through it as it is important for the exam.  
