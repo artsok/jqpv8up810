@@ -35,4 +35,14 @@ public class OCPBookExampleTest {
         log.info("Сколько времени между is и is2 '{}' в миллисекундах", Duration.between(is, is2).toMillis());
     }
 
+    @Test
+    public void testZoneDateTime() {
+        LocalDateTime ldt = LocalDateTime.of(2017, Month.DECEMBER, 1, 12, 00);
+        ZoneId id = ZoneId.of("US/Eastern");
+        ZonedDateTime zonedDateTime = ZonedDateTime.of(ldt, id);
+        Instant instant = zonedDateTime.toInstant();
+        log.info("В формате zoneDateTime '{}'",zonedDateTime);
+        log.info("В формате instant '{}'", instant);
+    }
+
 }
