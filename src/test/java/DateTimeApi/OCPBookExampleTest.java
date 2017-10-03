@@ -19,7 +19,7 @@ public class OCPBookExampleTest {
 
     @Test
     public void testChronoUni() {
-        LocalTime lc1 = LocalTime.of(20,00);
+        LocalTime lc1 = LocalTime.of(20, 00);
         LocalTime lc2 = LocalTime.of(21, 10);
         log.info("Сколько времени между lc1 и lc2 '{}' в минутах", ChronoUnit.MINUTES.between(lc1, lc2));
         log.info("Сколько времени между lc1 и lc2 '{}' в часах", ChronoUnit.HOURS.between(lc1, lc2));
@@ -40,7 +40,7 @@ public class OCPBookExampleTest {
         ZoneId id = ZoneId.of("US/Eastern");
         ZonedDateTime zonedDateTime = ZonedDateTime.of(ldt, id);
         Instant instant = zonedDateTime.toInstant();
-        log.info("В формате zoneDateTime '{}'",zonedDateTime);
+        log.info("В формате zoneDateTime '{}'", zonedDateTime);
         log.info("В формате instant '{}'", instant);
     }
 
@@ -51,6 +51,28 @@ public class OCPBookExampleTest {
         LocalDateTime d3 = LocalDateTime.parse("2015-01-02T17:13:50"); //Note that this will throw a  format.DateTimeParseException если в строке ввода отсутствует компонент времени T17:13:50
         LocalDate d4 = LocalDate.parse("2015-01-02"); //Note that this will throw a  format.DateTimeParseException if the input string contains the time component
         LocalTime d5 = LocalTime.parse("02:13:59.985"); //Note that this will throw a  format.DateTimeParseException if the input string contains the Date component
+    }
+
+    /**
+     * There are two equivalent ways of using this method.
+     * The first is to invoke this method. The second is to use TemporalUnit.between(Temporal, Temporal):    
+     *
+     * // these two lines are equivalent    
+     * amount = start.until(end, ChronoUnit.MINUTES);    
+     * amount = ChronoUnit.MINUTES.between(start, end);
+     */
+    @Test
+    public void testIsAfterExample() {
+        LocalTime now = LocalTime.of(9, 30);
+        LocalTime gameStart = LocalTime.of(10, 15);
+        long timeConsumed = 0;
+        long timeToStart = 0;
+        if (now.isAfter(gameStart)) {
+            timeConsumed = gameStart.until(now, ChronoUnit.HOURS);
+        } else {
+            timeToStart = now.until(gameStart, ChronoUnit.HOURS);
+        }
+        log.info("timeToStart = '{}', timeConsumed = '{}'", timeToStart, timeConsumed);
     }
 
 
