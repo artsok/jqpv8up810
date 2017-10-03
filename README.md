@@ -185,6 +185,24 @@ int[] cgpa =  { 2, 3, 2, 4, 3, 2 };
 OptionalDouble od = Arrays.stream(cgpa, 0, 6).filter(x->x>=2&&x<3).average(); 
 System.out.println(od.orElse(0.0));
 ``` 
+### Date/Time Api
+```html
+The following is from JavaDoc API description of the toString methods of Duration and Period.  
+Duration.toString:  It generates a string representation of the duration object using ISO-8601 seconds based representation, 
+such as PT8H6M12.345S.  The format of the returned string will be PTnHnMnS, where n is the relevant hours, minutes or seconds part 
+of the duration. Any fractional seconds are placed after a decimal point i the seconds section. 
+If a section has a zero value, it is omitted. The hours, minutes and seconds will all have the same sign. 
+Examples:  
+   "20.345 seconds"                 -- "PT20.345S     
+   "15 minutes" (15 * 60 seconds)   -- "PT15M"     
+   "10 hours" (10 * 3600 seconds)   -- "PT10H"     
+   "2 days" (2 * 86400 seconds)     -- "PT48H"  
+   
+Note that multiples of 24 hours are not output as days to avoid confusion with Period.  
+Period.toString: Outputs this period as a String, such as P6Y3M1D. 
+The output will be in the ISO-8601 period format. A zero period will be represented as zero days, 'P0D'.
+```
+
  
 # All Functional Interface in java.util.function
 ```  
