@@ -5,9 +5,8 @@ import org.junit.Test;
 
 import java.time.*;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
+
 
 @Slf4j
 public class OCPBookExampleTest {
@@ -44,5 +43,15 @@ public class OCPBookExampleTest {
         log.info("В формате zoneDateTime '{}'",zonedDateTime);
         log.info("В формате instant '{}'", instant);
     }
+
+    @Test
+    public void testUseCaseJavaTime() {
+        LocalDate d1 = LocalDate.of(2015, Month.JANUARY, 31);
+        LocalDateTime d2 = LocalDateTime.of(2015, Month.JANUARY, 31, 10, 56);
+        LocalDateTime d3 = LocalDateTime.parse("2015-01-02T17:13:50"); //Note that this will throw a  format.DateTimeParseException если в строке ввода отсутствует компонент времени T17:13:50
+        LocalDate d4 = LocalDate.parse("2015-01-02"); //Note that this will throw a  format.DateTimeParseException if the input string contains the time component
+        LocalTime d5 = LocalTime.parse("02:13:59.985"); //Note that this will throw a  format.DateTimeParseException if the input string contains the Date component
+    }
+
 
 }
