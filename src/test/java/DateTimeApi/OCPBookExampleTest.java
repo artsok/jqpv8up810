@@ -75,5 +75,16 @@ public class OCPBookExampleTest {
         log.info("timeToStart = '{}', timeConsumed = '{}'", timeToStart, timeConsumed);
     }
 
+    @Test
+    public void testDayLightSaving() {
+        LocalDate date = LocalDate.of(2016, Month.MARCH, 13);
+        LocalTime time = LocalTime.of(1, 30);
+        ZoneId zone = ZoneId.of("US/Eastern");
+        ZonedDateTime dateTime = ZonedDateTime.of(date, time, zone);
+        log.info("dateTime '{}'", dateTime);
+        dateTime = dateTime.plusHours(1);
+        log.info("dateTime '{}'", dateTime);
+    }
+
 
 }
