@@ -56,7 +56,7 @@ public class OCPBookExampleTest {
     /**
      * There are two equivalent ways of using this method.
      * The first is to invoke this method. The second is to use TemporalUnit.between(Temporal, Temporal):    
-     *
+     * <p>
      * // these two lines are equivalent    
      * amount = start.until(end, ChronoUnit.MINUTES);    
      * amount = ChronoUnit.MINUTES.between(start, end);
@@ -86,5 +86,23 @@ public class OCPBookExampleTest {
         log.info("dateTime '{}'", dateTime);
     }
 
+    /**
+     * The result of Duration.between method can be a negative period if the end is before the start.
+     */
+    @Test
+    public void testDayLightSavingAmerica() {
+        LocalDateTime ldt = LocalDateTime.of(2017, 06, 02, 6, 0, 0);  //Jun 2nd, 6AM.
+        ZoneOffset nyOffset = ZoneOffset.ofHoursMinutes(-5, 0);
+        ZoneId nyZone = ZoneId.of("America/New_York");
+
+        OffsetDateTime nyOdt = ldt.atOffset(nyOffset);
+        ZonedDateTime nyZdt = ldt.atZone(nyZone);
+
+        log.info("nyOdt '{}'", nyOdt);
+        log.info("nyZdt '{}'", nyZdt);
+
+        Duration d = Duration.between(nyOdt, nyZdt);
+        log.info("Duration d '{}'", d);
+    }
 
 }
