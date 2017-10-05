@@ -4,6 +4,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 
 import java.time.*;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoUnit;
 import java.util.concurrent.TimeUnit;
 
@@ -103,6 +105,14 @@ public class OCPBookExampleTest {
 
         Duration d = Duration.between(nyOdt, nyZdt);
         log.info("Duration d '{}'", d);
+    }
+
+
+    @Test(expected = DateTimeParseException.class)
+    public void testLocalDateTime() {
+        LocalDateTime greatDay = LocalDateTime.parse("2015-01-01");
+        String greatDayStr = greatDay.format(DateTimeFormatter.ISO_DATE_TIME);
+        log.info("greatDayStr '{}'", greatDayStr);
     }
 
 }
