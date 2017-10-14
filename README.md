@@ -250,3 +250,16 @@ ToLongBiFunction
 ToLongFunction
 UnaryOperator
 ```
+
+# Optional
+```html
+OptionalInt
+OptionalDouble
+OptionalLong
+OptionalBoolean
+Optional
+```
+Examples:
+https://www.leveluplunch.com/java/examples/java-util-optionallong-example/
+https://www.leveluplunch.com/java/examples/java-util-optionalint-example/
+https://www.leveluplunch.com/java/examples/java-util-optionaldouble-example/
