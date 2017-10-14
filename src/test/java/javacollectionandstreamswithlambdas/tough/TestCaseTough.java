@@ -14,7 +14,7 @@ import java.util.stream.IntStream;
 
 public class TestCaseTough {
 
-    private static Logger logger = LoggerFactory.getLogger(javacollectionandstreamswithlambdas.tough.TestCaseTough.class);
+    private static Logger logger = LoggerFactory.getLogger(TestCaseTough.class);
 
     /**
      * Examples with Collectors.summarizingInt. All result will be 6
