@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.OptionalDouble;
 
 public class TestCaseEasy {
 
@@ -22,5 +23,12 @@ public class TestCaseEasy {
     public void testForEachOrdered() {
         List<Integer> integers = Arrays.asList(1, 2, 3, 4);
         integers.stream().parallel().forEachOrdered(a -> logger.info("Число в массиве '{}'", a));
+    }
+
+    @Test
+    public void testIntStreamParallel() {
+        int[] array = new int[]{1, 2, 3, 4, 5, 6};
+        OptionalDouble average = Arrays.stream(array).parallel().average();
+        average.ifPresent(p -> logger.info("testIntStreamParallel '{}'", p));
     }
 }
