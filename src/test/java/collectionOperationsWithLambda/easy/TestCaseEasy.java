@@ -88,6 +88,14 @@ public class TestCaseEasy {
         logger.info("testAverage '{}'",averagePrice);
     }
 
+
+    @Test
+    public void testOptionalAllMatch() {
+        List<String> names = Arrays.asList("Peter", "Paul", "Pascal");
+        boolean result = names.stream().parallel().allMatch(name->name!=null);
+        logger.info("testOptionalAllMatch - '{}'", result);
+    }
+
 }
 
 @Data
