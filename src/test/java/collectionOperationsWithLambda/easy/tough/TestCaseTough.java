@@ -7,9 +7,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.function.BiFunction;
 import java.util.function.ToDoubleFunction;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 public class TestCaseTough {
@@ -33,6 +35,18 @@ public class TestCaseTough {
                         }
                 );
     }
+
+    @Test
+    public void testMergeInMap() {
+        Map<String, String> map = new HashMap<>();
+        map.put("a", "x");
+        map.put("b", "x");
+        BiFunction<String, String, String> f = String::concat;
+        map.merge("b", "y", f);
+        map.merge("c", "y", f);
+        logger.info("testMergeInMap '{}'", map);
+    }
+
 
     @Data
     @AllArgsConstructor
