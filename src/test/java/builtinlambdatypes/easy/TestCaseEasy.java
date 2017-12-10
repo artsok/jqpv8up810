@@ -4,10 +4,7 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.function.Consumer;
-import java.util.function.DoubleSupplier;
-import java.util.function.IntFunction;
-import java.util.function.Supplier;
+import java.util.function.*;
 
 public class TestCaseEasy {
 
@@ -46,6 +43,16 @@ public class TestCaseEasy {
         Supplier<String> a = name::toUpperCase;
         val = a.get();
         logger.info("testSupplier -  {}", val);
+    }
+
+    @Test
+    public void testForFun() {
+        String val1 = "hello";
+        StringBuilder val2 = new StringBuilder("world");
+        UnaryOperator<String> uo1 = s1->s1.concat(val1);
+        UnaryOperator<String> uo2 = String::toUpperCase;
+        //System.out.println(uo1.apply(uo2.apply(val2)));
+        //Remember that StringBuilder and StringBuffer do not extend String. The UnaryOperaty uo2 has been typed to String and therefore, you cannot apply it to a StringBuilder object.
     }
 
     /**
