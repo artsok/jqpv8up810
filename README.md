@@ -161,7 +161,7 @@ the predicate will return false for the first element and therefore there is not
 
 
 
-###Lambda CookBook
+### Lambda CookBook
 1. The JavaDoc API description explains exactly how the merge method works. 
 You should go through it as it is important for the exam.  
 public V merge(K key, V value, BiFunction<? super V,? super V,? extends V> remappingFunction)  
@@ -263,3 +263,23 @@ Examples:
 https://www.leveluplunch.com/java/examples/java-util-optionallong-example/
 https://www.leveluplunch.com/java/examples/java-util-optionalint-example/
 https://www.leveluplunch.com/java/examples/java-util-optionaldouble-example/
+
+###Lambda Expressions
+
+1. Не возможно вызвать строчку inner1.doA(). Нельзя получить доступ к методу, который создали в анонимном классе.  
+```java
+public class TopClass {
+    public Inner inner1 = new Inner() {
+        public void doA() {
+            System.out.println("A");
+        }
+    };
+    public void doA() {
+        inner1.doA();
+    }
+}
+
+class Inner {
+    
+}
+``` 
