@@ -10,6 +10,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.DoubleStream;
+import java.util.stream.Stream;
 
 public class TestCaseEasy {
 
@@ -94,6 +96,22 @@ public class TestCaseEasy {
         List<String> names = Arrays.asList("Peter", "Paul", "Pascal");
         boolean result = names.stream().parallel().allMatch(name->name!=null);
         logger.info("testOptionalAllMatch - '{}'", result);
+    }
+
+    @Test
+    public void testAnyMatch() {
+        String sentence = "Life is a box of chocolates, Forrest. You never know what!";
+        boolean anyMatch = Stream.of(sentence.split("[ .,]")).anyMatch(w -> w.startsWith("c"));
+        logger.info("testAnyMatch - '{}'", anyMatch);
+    }
+
+    @Test
+    public void testSum() {
+        DoubleStream doubleStream = DoubleStream.of(2.0, 3.0, 5.9);
+        double sum = doubleStream.filter(i -> i > 0).sum();
+        logger.info("testSum - '{}'", sum);
+
+
     }
 
 }

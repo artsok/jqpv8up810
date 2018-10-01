@@ -510,3 +510,59 @@ public interface Predicate<T> {
 UnaryOperaty uo2 тип класса String и нельзя его применить к объекту StringBuilder.
 
 
+### Java Collections and Streams with Lambda
+
+1. Метод forEach принимает интерфейс java.util.function.Consumer
+```java
+List<Integer> names = Arrays.asList(1,2,3);
+names.forEach(x-> x = x + 1);
+```
+, где x - это временная переменная и данная функция не затронет изминения списка names.
+
+
+
+### Collections Operations with Lambda
+
+1. Помнить, что возвращают методы: findFirst, findAny, anyMatch, allMatch. Два возвращают boolean, два Optional<T>.
+```java
+boolean flag = values.stream().allMatch(str->str.equals("Alpha")); 
+Optional<String> opt = values.stream().findFirst();
+Optional<String> opt = values.stream().findAny();
+boolean flag = values.stream().anyMatch(str->str.equals("Alpha"));
+```
+
+2. Операция average() для IntStream, DoubleStream, LongStream возвращают OptionalDouble. Если нет результата, то будет OptionalDouble.empty.
+
+3. Операция sum() возвращает тип значения используемого Stream. Например: При использовании LongStream метода sum() будет возвращаться значение long.
+Если Stream будет пустой, то sum() метод вернет 0 или 0.0. 
+
+### Lambda CookBook
+
+1. Использование метода flatMap(). Похож на map, но может создавать из одного элемента несколько, т.е элемент stream преобразуется в элементы из данного stream.
+```java
+List<String> l1 = Arrays.asList("a","b");
+List<String> l2 = Arrays.asList("1","2");
+Stream.of(l1, l2).flatMap((x)->x.stream()).forEach((x)->System.out.println(x));
+```
+В данном примере создается stream с элементами l1, l2. Далее, flatMap создает ОДИН stream с элементами, которые были в двух stream, т.е объединяет их. 
+Оснавная мысль на английском: "flatMap() to flatten a Stream of Stream of values into just a Stream of values".
+
+2. В Java 8 API, можно создать тремя способами stream.
+a) Метод stream() добавлен в интерфейс Collection;
+```java
+private static List<Employee> empList = Arrays.asList(arrayOfEmps);
+empList.stream();
+```
+б) Метод Stream.of(..):
+```java
+Stream.of(arrayOfEmps[0], arrayOfEmps[1], arrayOfEmps[2]);
+```
+в) Через Stream.builder():
+```java
+Stream.Builder<Employee> empStreamBuilder = Stream.builder();
+empStreamBuilder.accept(arrayOfEmps[0]);
+empStreamBuilder.accept(arrayOfEmps[1]);
+empStreamBuilder.accept(arrayOfEmps[2]);
+Stream<Employee> empStream = empStreamBuilder.build();
+```
+
