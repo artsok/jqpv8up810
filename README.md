@@ -203,6 +203,14 @@ Period.toString: Outputs this period as a String, such as P6Y3M1D.
 The output will be in the ISO-8601 period format. A zero period will be represented as zero days, 'P0D'.
 ```
 
+1. При использование класса Duration, Period в рассчете результата с Daylight Saving Time, будут разные значения. 
+Duration оперирует часами, минутами, секундами и поддерживает переход времени с зимнего на летнее и наоборот.
+Period опериуерт днями, месяцами и годама - не поддерживает переход времени. 
+
+2. Объект Instant не поддерживает time zone. Но при создание LocalDateTime используя Instant, вам потребуется указать Zone, чтобы время было в вашей 
+временной зоне. Но помните сам LocalDateTime не хранит зону.
+
+3. Обращать внимание на операции Period (P), Duration (PT). Бывают задачи со значением минус.
  
 # All Functional Interface in java.util.function
 ```  
@@ -565,4 +573,5 @@ empStreamBuilder.accept(arrayOfEmps[1]);
 empStreamBuilder.accept(arrayOfEmps[2]);
 Stream<Employee> empStream = empStreamBuilder.build();
 ```
-
+Обратите внимание на использование метода Stream.of(x), в примере ниже. Получается, что создатся "Stream of Stream".
+Stream.of(l1, l2).flatMap((x)-> Stream.of(x)).filter(x -> x.contains("a")).forEach((x)->System.out.println(x));
