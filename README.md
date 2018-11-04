@@ -205,16 +205,23 @@ The output will be in the ISO-8601 period format. A zero period will be represen
 
 1. При использование класса Duration, Period в рассчете результата с Daylight Saving Time, будут разные значения. 
 Duration оперирует часами, минутами, секундами и поддерживает переход времени с зимнего на летнее и наоборот.
-Period опериуерт днями, месяцами и годама - не поддерживает переход времени. 
+Period опериуерт днями, месяцами и годама - не поддерживает переход времени.
+Если Duration = 0, то будет PT0S. Если Period будет 0, то P0D.
 
 2. Объект Instant не поддерживает time zone. Но при создание LocalDateTime используя Instant, вам потребуется указать Zone, чтобы время было в вашей 
-временной зоне. Но помните сам LocalDateTime не хранит зону.
+временной зоне. Но помните сам LocalDateTime не хранит зону. Instant.now() возвращает machine time в UTC.
+```java
+Instant ins = Instant.now(); 
+ZoneOffset india = ZoneOffset.ofHoursMinutes(5, 30); 
+System.out.println(ins.atOffset(india)); 
+//This will print 2017-01-20T18:30:00.000+05:30 assuming it is 6.30 PM in India.
+```
 
 3. Обращать внимание на операции Period (P), Duration (PT). Бывают задачи со значением минус. Используется метод between().
      * This calculates the duration between two temporal objects. If the objects
      * are of different types, then the duration is calculated based on the type
      * of the first object. For example, if the first argument is a {@code LocalTime}
-     * then the second argument is converted to a {@code LocalTime}.
+     * then the second argument is converted to a {@code LocalTime}. Обращать внимание, к какому типу будет приведент второй аргумент!
      * <p>
      * The specified temporal objects must support the {@link ChronoUnit#SECONDS SECONDS} unit.
      * For full accuracy, either the {@link ChronoUnit#NANOS NANOS} unit or the
@@ -223,6 +230,29 @@ Period опериуерт днями, месяцами и годама - не п
      * The result of this method can be a negative period if the end is before the start. 
      (Если вторым аргументом время будет впереди, чем первое, то результат будет отрицательным)! 
      * To guarantee to obtain a positive duration call {@link #abs()} on the result.
+
+4. Все операции с новым date/time кидают исключение java.time.DateTimeException, которое наследуется от RuntimeException.
+
+5. При работе с методом parse(), по дефолту используется формат DateTimeFormatter.ISO_LOCAL_DATE_TIME ("2011-12-03T10:15:30").
+
+6. При вызовк toString() класса LocalDateTime, метод выводи информацию о времени и дате в формате ISO 8601.
+
+7. Почти все классы java.time создаются без конструкторов.
+
+8. java.time.ZoneId обозначает временную зону. Два его сабкласса java.time.ZoneRegion и java.time.ZoneOffset реализуют два типа временных зон: 
+временную зону по географическому принципу и временную зону по простому смещению относительно UTC, UT или GMT. 
+Правила перевода стрелок вынесены в отдельных класс java.time.zone.ZoneRules, экземпляр которого доступен через метод java.time.ZoneId#getRules.
+
+9. java.time.OffsetTime — это LocalTime + ZoneOffset
+   java.time.OffsetDateTime — это LocalDateTime + ZoneOffset
+OffsetDateTime хранит меньше информации чем ZonedDateTime. 
+OffsetDateTime может полноценно обозначать временную точку на временной оси, но полностью корректные сдвиги производить не в силах, 
+поскольку о будущих и прошлых переводах стрелок этот класс ничего не знает. 
+
+Difference between OffsetDateTime and ZonedDateTime is that the latter includes the rules that cover daylight saving time adjustments.
+(Таким образом, разница между OffsetDateTime и ZonedDateTime заключается в том, что последний включает правила, которые 
+включают корректировки времени на летнее время.)
+
  
 # All Functional Interface in java.util.function
 ```  
