@@ -210,7 +210,18 @@ Period опериуерт днями, месяцами и годама - не п
 2. Объект Instant не поддерживает time zone. Но при создание LocalDateTime используя Instant, вам потребуется указать Zone, чтобы время было в вашей 
 временной зоне. Но помните сам LocalDateTime не хранит зону.
 
-3. Обращать внимание на операции Period (P), Duration (PT). Бывают задачи со значением минус.
+3. Обращать внимание на операции Period (P), Duration (PT). Бывают задачи со значением минус. Используется метод between().
+     * This calculates the duration between two temporal objects. If the objects
+     * are of different types, then the duration is calculated based on the type
+     * of the first object. For example, if the first argument is a {@code LocalTime}
+     * then the second argument is converted to a {@code LocalTime}.
+     * <p>
+     * The specified temporal objects must support the {@link ChronoUnit#SECONDS SECONDS} unit.
+     * For full accuracy, either the {@link ChronoUnit#NANOS NANOS} unit or the
+     * {@link ChronoField#NANO_OF_SECOND NANO_OF_SECOND} field should be supported.
+     * <p>
+     * The result of this method can be a negative period if the end is before the start.
+     * To guarantee to obtain a positive duration call {@link #abs()} on the result.
  
 # All Functional Interface in java.util.function
 ```  
