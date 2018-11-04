@@ -220,7 +220,8 @@ Period опериуерт днями, месяцами и годама - не п
      * For full accuracy, either the {@link ChronoUnit#NANOS NANOS} unit or the
      * {@link ChronoField#NANO_OF_SECOND NANO_OF_SECOND} field should be supported.
      * <p>
-     * The result of this method can be a negative period if the end is before the start.
+     * The result of this method can be a negative period if the end is before the start. 
+     (Если вторым аргументом время будет впереди, чем первое, то результат будет отрицательным)! 
      * To guarantee to obtain a positive duration call {@link #abs()} on the result.
  
 # All Functional Interface in java.util.function
