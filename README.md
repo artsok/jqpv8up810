@@ -342,6 +342,8 @@ class Inner {
 1. Требуется понимание основных функциональных интерфейсов Supplier, Consumer, Function, UnaryOperator, Predicate.
 Читать: https://docs.oracle.com/javase/8/docs/api/java/util/function/package-summary.html
 
+2. Обратите внимание Predicate возвращает тип boolean, а не обертку Boolean!
+
 ```java
 @FunctionalInterface
 public interface Supplier<T> {
