@@ -171,6 +171,20 @@ public class TestCaseTough {
     }
 
 
+    /**
+     * This example partitions the input strings into a map of strings values based on whether the
+     * first character is upper case or lower case.
+     * The downstream Collector converts the values list into the count (size of the list)
+     */
+    @Test
+    public void testPartitioningByWithDownstreamCollector() {
+        Stream<String> s = Stream.of("Ace", "heart", "Club", "diamond");
+        Map<Boolean, Long> map = s.collect(Collectors.partitioningBy(x -> Character.isUpperCase(x.charAt(0)), Collectors.counting()));
+
+        logger.info("Результат {}", map);
+    }
+
+
 
     /**
      * Read user and password from file (read one line from file and don't close stream)
