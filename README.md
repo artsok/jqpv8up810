@@ -5,6 +5,7 @@
 1. https://habrahabr.ru/sandbox/108078/
 2. https://www.youtube.com/watch?v=3uIWoHlS51g
 3. https://habrahabr.ru/company/luxoft/blog/270383/
+4. https://habr.com/ru/post/322606/ - [RU] article about 1Z0-810
 
 
 # What To Remember
