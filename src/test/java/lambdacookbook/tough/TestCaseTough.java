@@ -1,6 +1,8 @@
 package lambdacookbook.tough;
 
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,6 +12,7 @@ import java.nio.file.FileVisitOption;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.Map;
 import java.util.OptionalInt;
 import java.util.stream.Collectors;
@@ -148,8 +151,26 @@ public class TestCaseTough {
     public void testPartitioningBy() {
         Stream<Integer> values = IntStream.rangeClosed(10, 15).boxed();
         Object obj = values.collect(Collectors.partitioningBy(x -> x%2==0));
-        logger.info("Результат {}", obj);
+
     }
+
+
+    /**
+     * Применяем операцию partitioningBy. Predicate сравнивает объект со строкой.
+     * Следовательно все объекты попадут в false группу.
+     */
+    @Test
+    public void testPartitioningByEmpty() {
+        Certification c1 = new Certification("S001", "OCA", 87);
+        Certification c2 = new Certification("S002", "OCP", 82);
+        Certification c3 = new Certification("S003", "OCP", 79);
+
+        Stream<Certification> stream = Stream.of(c1, c2, c3);
+        Map<Boolean, List<Certification>> map = stream.collect(Collectors.partitioningBy(s -> s.equals("OCA")));
+        logger.info("Результат {}", map);
+    }
+
+
 
     /**
      * Read user and password from file (read one line from file and don't close stream)
@@ -171,4 +192,13 @@ public class TestCaseTough {
 
 
 
+}
+
+
+@Data
+@AllArgsConstructor
+class Certification {
+    private String studId;
+    private String test;
+    int marks;
 }
